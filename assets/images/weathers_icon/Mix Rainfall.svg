@@ -1,0 +1,25 @@
+<svg width="67" height="58" viewBox="0 0 67 58" fill="none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<linearGradient id="paint0_linear_5_253" x1="702.643" y1="1498.23" x2="1276.92" y2="1019.05" gradientUnits="userSpaceOnUse">
+<stop stop-color="#FFBC27"/>
+<stop offset="1" stop-color="#FDE252"/>
+</linearGradient>
+<linearGradient id="paint1_linear_5_253" x1="1381" y1="841" x2="1861.01" y2="89.6751" gradientUnits="userSpaceOnUse">
+<stop stop-color="#D6F2FD"/>
+<stop offset="1" stop-color="#E5F5FD"/>
+</linearGradient>
+<linearGradient id="paint2_linear_5_253" x1="131.413" y1="947.056" x2="366.33" y2="626.924" gradientUnits="userSpaceOnUse">
+<stop stop-color="#00CCFF"/>
+<stop offset="1" stop-color="#5DDEFE"/>
+</linearGradient>
+<clipPath id="clip0_5_253">
+<rect width="67" height="58" fill="white"/>
+</clipPath>
+</defs>
+<g clip-path="url(#clip0_5_253)">
+<path d="M44.3 31C45.9 31 46.6 32.2 45.8 33.6L42.8 38.7C42 40.1 42.7 41.2 44.4 41.1L51 40.8C52.7 40.7 53 41.5 51.7 42.6L34.3 56.9C33 58 32.6 57.6 33.4 56.2L38.2 47.3C39 45.8 38.3 44.7 36.6 44.9L32.3 45.2C30.7 45.3 30 44.2 30.8 42.8L36.1 33.6C36.9 32.2 39 31 40.6 31H44.3Z" fill="url(#paint0_linear_5_253)"/>
+<path d="M13.3 36C5.9 36 0 30.1 0 22.9C0 15.7 5.9 9.9 13.3 9.9C13.3667 9.9 13.4333 9.9 13.5 9.9C16.2 4 22.2 -0.0999985 29.1 -0.0999985C37.9 -0.0999985 45.2 6.5 46.1 14.9C46.1667 14.9 46.2 14.9 46.2 14.9C52.2 14.9 57 19.6 57 25.4C57 31.2 52.2 36 46.2 36" fill="white"/>
+<path d="M39.4 36C34.7 36 31 32.3 31 27.7C31 23.1 34.7 19.3 39.4 19.3C39.4 19.3 39.4333 19.3 39.5 19.3C41.2 15.6 45 13 49.4 13C54.9 13 59.5 17.2 60.1 22.5C60.1 22.5 60.1333 22.5 60.2 22.5C63.9 22.5 67 25.5 67 29.3C67 33 63.9 36 60.2 36" fill="url(#paint1_linear_5_253)"/>
+<path d="M5.2 57.7C4.86666 57.7 4.53333 57.6 4.2 57.4C3.2 56.8 2.9 55.6 3.4 54.6L10 43C10.6 42.1 11.8 41.7 12.8 42.3C13.7 42.9 14.1 44.1 13.5 45.1L6.9 56.6C6.6 57.3 5.9 57.7 5.2 57.7ZM15.9 57.7C15.5667 57.7 15.2333 57.6 14.9 57.4C14 56.8 13.6 55.6 14.2 54.6L20.8 43C21.3 42.1 22.6 41.7 23.5 42.3C24.5 42.9 24.8 44.1 24.3 45.1L17.7 56.6C17.3 57.3 16.6 57.7 15.9 57.7V57.7Z" fill="url(#paint2_linear_5_253)"/>
+</g>
+</svg>
