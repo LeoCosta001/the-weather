@@ -12,7 +12,26 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'The Weather',
       theme: ThemeData(
+        useMaterial3: true,
+        appBarTheme: const AppBarTheme(
+          titleTextStyle: TextStyle(color: Colors.white),
+          toolbarTextStyle: TextStyle(color: Colors.white),
+          backgroundColor: Colors.transparent,
+          shadowColor: Colors.transparent,
+          actionsIconTheme: IconThemeData(color: Colors.white),
+          iconTheme: IconThemeData(color: Colors.white),
+        ),
         primarySwatch: Colors.blue,
+        textButtonTheme: TextButtonThemeData(
+          style: ButtonStyle(
+            foregroundColor: MaterialStateProperty.resolveWith((states) => Colors.white),
+          ),
+        ),
+        textTheme: const TextTheme(
+          button: TextStyle(color: Colors.white),
+          bodyText1: TextStyle(color: Colors.white),
+          bodyText2: TextStyle(color: Colors.white),
+        ),
       ),
       initialRoute: '/',
       routes: {
