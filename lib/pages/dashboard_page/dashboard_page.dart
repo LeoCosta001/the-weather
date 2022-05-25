@@ -86,7 +86,6 @@ class _DashboardPageState extends State<DashboardPage> {
                       break;
                     case ConnectionState.waiting:
                       return const LoadingData();
-                      break;
                     case ConnectionState.active:
                       // TODO: Handle this case.
                       break;
@@ -94,24 +93,43 @@ class _DashboardPageState extends State<DashboardPage> {
                       if (snapshot.hasData) {
                         final WeatherApi weatherApi = snapshot.data as WeatherApi;
 
-                        return ListView(
-                          scrollDirection: Axis.vertical,
-                          padding: EdgeInsets.only(top: topContainerPadding, right: 8.0, bottom: 8.0, left: 8.0),
-                          children: [
-                            // Current weather
-                            CurrentWeatherContainer(weatherApi: weatherApi),
-
-                            // Hourly weather
-                            HourlyWeatherContainer(weatherApi: weatherApi),
-
-                            // Daily weather
-                            DailyWeatherContainer(weatherApi: weatherApi)
-                          ],
-                        );
+                        if (isPortrait) {
+                          return ListView(
+                            scrollDirection: Axis.vertical,
+                            padding: EdgeInsets.only(top: topContainerPadding, right: 8.0, bottom: 8.0, left: 8.0),
+                            children: [
+                              // Current weather
+                              CurrentWeatherContainer(weatherApi: weatherApi),
+                              // Hourly weather
+                              HourlyWeatherContainer(weatherApi: weatherApi),
+                              // Daily weather
+                              DailyWeatherContainer(weatherApi: weatherApi)
+                            ],
+                          );
+                        } else {
+                          return Padding(
+                            padding: const EdgeInsets.only(top: 0, right: 8.0, bottom: 8.0, left: 8.0),
+                            child: Row(
+                              children: [
+                                // Current weather
+                                CurrentWeatherContainer(weatherApi: weatherApi),
+                                Expanded(
+                                  child: ListView(
+                                    scrollDirection: Axis.vertical,
+                                    children: [
+                                      // Hourly weather
+                                      HourlyWeatherContainer(weatherApi: weatherApi),
+                                      // Daily weather
+                                      DailyWeatherContainer(weatherApi: weatherApi)
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        }
                       }
 
-                      print('######################');
-                      print(snapshot.data);
                       return CenteredMessage(
                         'Unknown error!',
                         icon: Icons.error,

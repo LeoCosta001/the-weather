@@ -24,9 +24,10 @@ class _HourlyWeatherContainerState extends State<HourlyWeatherContainer> {
   Widget build(BuildContext context) {
     return Container(
         alignment: Alignment.centerLeft,
+        padding: const EdgeInsets.only(bottom: 8.0),
         child: Container(
           width: double.infinity,
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.only(right: 16.0, bottom: 16.0, left: 16.0),
           decoration: BoxDecoration(
             color: Colors.black.withOpacity(0.1),
             borderRadius: BorderRadius.circular(16.0),

@@ -21,6 +21,7 @@ class _CurrentWeatherContainerState extends State<CurrentWeatherContainer> {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.centerLeft,
+      padding: const EdgeInsets.only(right:8.0, bottom: 8.0),
       child: Container(
         width: 200.0,
         padding: const EdgeInsets.all(16.0),

@@ -28,7 +28,7 @@ class _DailyWeatherContainerState extends State<DailyWeatherContainer> {
       alignment: Alignment.centerLeft,
       child: Container(
         width: double.infinity,
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.only(right: 16.0, bottom: 16.0, left: 16.0),
         decoration: BoxDecoration(
           color: Colors.black.withOpacity(0.1),
           borderRadius: BorderRadius.circular(16.0),
