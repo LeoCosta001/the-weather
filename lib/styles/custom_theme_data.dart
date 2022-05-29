@@ -38,5 +38,28 @@ class CustomThemeData {
     iconTheme: const IconThemeData(
       color: Colors.white
     ),
+
+    // Input theme
+    inputDecorationTheme: InputDecorationTheme(
+      border: const OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.white, width: 2.0),
+        borderRadius: BorderRadius.all(Radius.elliptical(15, 15)),
+      ),
+      enabledBorder: const OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.white),
+        borderRadius: BorderRadius.all(Radius.elliptical(15, 15)),
+      ),
+      disabledBorder: const OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.white),
+        borderRadius: BorderRadius.all(Radius.elliptical(15, 15)),
+      ),
+      focusedBorder: const OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.white, width: 2.0),
+        borderRadius: BorderRadius.all(Radius.elliptical(15, 15)),
+      ),
+      prefixIconColor: Colors.white.withOpacity(0.5),
+      labelStyle: TextStyle(color: Colors.white.withOpacity(0.5)),
+      contentPadding: const EdgeInsets.only(left: 40.0, top: 20.0, right: 20.0, bottom: 20.0),
+    ),
   );
 }
