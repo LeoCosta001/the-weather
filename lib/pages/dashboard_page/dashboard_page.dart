@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:the_weather/http/weather_api/weather_api_webclient.dart';
+import 'package:the_weather/pages/dashboard_page/widgets/drawer.dart';
 import 'package:the_weather/models/weather_api/weather_api.dart';
 import 'package:the_weather/pages/dashboard_page/widgets/current_weather.dart';
 import 'package:the_weather/pages/dashboard_page/widgets/daily_weather.dart';
 import 'package:the_weather/pages/dashboard_page/widgets/hourly_weather.dart';
-import 'package:the_weather/widgets/centered_message.dart';
-import 'package:the_weather/widgets/loading_data.dart';
+import 'package:the_weather/shared/widgets/centered_message.dart';
+import 'package:the_weather/shared/widgets/loading_data.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({Key? key}) : super(key: key);
@@ -44,27 +45,30 @@ class _DashboardPageState extends State<DashboardPage> {
               ),
             ),
           ),
-          title: const Text(
-            'SP - Santo André',
-            style: TextStyle(
-              fontWeight: FontWeight.w400,
-
-              /// TODO: The font size must take into account the number of characters to be displayed so that it does not exceed the demarcated size
-              fontSize: 20.0,
-            ),
-          ),
-          actions: [
-            Tooltip(
-              message: 'Search location',
-              child: IconButton(
-                onPressed: () {},
-                icon: const Icon(Icons.search, size: 28.0),
-                splashRadius: 26.0,
+          title: Row(
+            children: const [
+              Padding(
+                padding: EdgeInsets.only(right: 8.0),
+                child: Icon(Icons.room),
               ),
-            ),
-          ],
+              Text(
+                'SP - Santo André',
+                style: TextStyle(
+                  fontWeight: FontWeight.w400,
+
+                  /// TODO: The font size must take into account the number of characters to be displayed so that it does not exceed the demarcated size
+                  fontSize: 20.0,
+                ),
+              ),
+            ],
+          ),
         ),
-        drawer: const Drawer(),
+        drawer: DashboardDrawer(
+          onSelectLocation: (selectedLocation) {
+            print(selectedLocation.toString());
+          },
+        ),
+
         body: OrientationBuilder(builder: (context, orientation) {
           final isPortrait = orientation == Orientation.portrait;
           // Responsive size
@@ -145,3 +149,4 @@ class _DashboardPageState extends State<DashboardPage> {
     );
   }
 }
+
