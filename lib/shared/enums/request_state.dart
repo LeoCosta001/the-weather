@@ -3,6 +3,7 @@ enum RequestState {
   empty('empty'),
   loading('loading'),
   ok('ok'),
+  customError('customError'),
   error('error');
 
   final String cycle;
