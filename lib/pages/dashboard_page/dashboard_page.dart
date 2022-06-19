@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:the_weather/http/weather_api/weather_api_webclient.dart';
+import 'package:the_weather/models/positionstack_api/positionstack_location_normalize.dart';
+import 'package:the_weather/pages/dashboard_page/widgets/dashboard_content.dart';
 import 'package:the_weather/pages/dashboard_page/widgets/drawer.dart';
 import 'package:the_weather/models/weather_api/weather_api.dart';
-import 'package:the_weather/pages/dashboard_page/widgets/current_weather.dart';
-import 'package:the_weather/pages/dashboard_page/widgets/daily_weather.dart';
-import 'package:the_weather/pages/dashboard_page/widgets/hourly_weather.dart';
-import 'package:the_weather/shared/widgets/centered_message.dart';
-import 'package:the_weather/shared/widgets/loading_data.dart';
+import 'package:the_weather/shared/enums/request_state.dart';
+
+/* ************************
+** Widget: DashboardPage **
+************************ */
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({Key? key}) : super(key: key);
@@ -17,6 +19,32 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage> {
   final WeatherApiWebClient _weatherApiWebClient = WeatherApiWebClient();
+
+  // States
+  RequestState _requestState = RequestState.initial;
+  PositionstackLocationNormalize? _selectedLocation;
+  WeatherApi? _selectedLocationWeather;
+
+  // Methods
+  void _updateSelectedLocation(PositionstackLocationNormalize newLocation) {
+    setState(() => _requestState = RequestState.loading);
+    setState(() => _selectedLocation = newLocation);
+
+    _weatherApiWebClient
+        .getWeatherApiOneCall(
+      WeatherApiWebClientOneCallOption(longitude: newLocation.longitude, latitude: newLocation.latitude),
+    )
+        .then((WeatherApi newWeatherApi) {
+      setState(() => _selectedLocationWeather = newWeatherApi);
+      setState(() => _requestState = RequestState.ok);
+    }).catchError((onError) {
+      setState(() => _requestState = RequestState.error);
+    });
+  }
+
+  String _getPageTitleText() {
+    return _selectedLocation == null ? 'Select location' : '${_selectedLocation!.title} - ${_selectedLocation!.subTitle}';
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,107 +74,47 @@ class _DashboardPageState extends State<DashboardPage> {
             ),
           ),
           title: Row(
-            children: const [
-              Padding(
+            children: [
+              const Padding(
                 padding: EdgeInsets.only(right: 8.0),
                 child: Icon(Icons.room),
               ),
-              Text(
-                'SP - Santo André',
-                style: TextStyle(
-                  fontWeight: FontWeight.w400,
-
-                  /// TODO: The font size must take into account the number of characters to be displayed so that it does not exceed the demarcated size
-                  fontSize: 20.0,
+              Expanded(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Text(
+                    _getPageTitleText(),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 20.0,
+                    ),
+                  ),
                 ),
               ),
             ],
           ),
         ),
         drawer: DashboardDrawer(
-          onSelectLocation: (selectedLocation) {
-            print(selectedLocation.toString());
+          onSelectLocation: (PositionstackLocationNormalize selectedLocation) {
+            _updateSelectedLocation(selectedLocation);
           },
         ),
-
         body: OrientationBuilder(builder: (context, orientation) {
           final isPortrait = orientation == Orientation.portrait;
-          // Responsive size
-          final topContainerPadding = MediaQuery.of(context).size.width / (isPortrait ? 3 : 20);
 
           return RefreshIndicator(
-              onRefresh: () async {
-                /// TODO: Refresh page function
-              },
-              child: FutureBuilder(
-                initialData: const [],
-                future: _weatherApiWebClient.getWeatherApiOneCall(
-                  WeatherApiWebClientOneCallOption(longitude: -46.51, latitude: -23.68),
-                ),
-                builder: (context, snapshot) {
-                  switch (snapshot.connectionState) {
-                    case ConnectionState.none:
-                      // TODO: Handle this case.
-                      break;
-                    case ConnectionState.waiting:
-                      return const LoadingData();
-                    case ConnectionState.active:
-                      // TODO: Handle this case.
-                      break;
-                    case ConnectionState.done:
-                      if (snapshot.hasData) {
-                        final WeatherApi weatherApi = snapshot.data as WeatherApi;
-
-                        if (isPortrait) {
-                          return ListView(
-                            scrollDirection: Axis.vertical,
-                            padding: EdgeInsets.only(top: topContainerPadding, right: 8.0, bottom: 8.0, left: 8.0),
-                            children: [
-                              // Current weather
-                              CurrentWeatherContainer(weatherApi: weatherApi),
-                              // Hourly weather
-                              HourlyWeatherContainer(weatherApi: weatherApi),
-                              // Daily weather
-                              DailyWeatherContainer(weatherApi: weatherApi)
-                            ],
-                          );
-                        } else {
-                          return Padding(
-                            padding: const EdgeInsets.only(top: 0, right: 8.0, bottom: 8.0, left: 8.0),
-                            child: Row(
-                              children: [
-                                // Current weather
-                                CurrentWeatherContainer(weatherApi: weatherApi),
-                                Expanded(
-                                  child: ListView(
-                                    scrollDirection: Axis.vertical,
-                                    children: [
-                                      // Hourly weather
-                                      HourlyWeatherContainer(weatherApi: weatherApi),
-                                      // Daily weather
-                                      DailyWeatherContainer(weatherApi: weatherApi)
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        }
-                      }
-
-                      return CenteredMessage(
-                        'Unknown error!',
-                        icon: Icons.error,
-                        color: Theme.of(context).errorColor,
-                      );
-                  }
-
-                  return Container();
-                },
-              ));
+            onRefresh: () async {
+              /// TODO: Refresh page function
+            },
+            child: DashboardContent(
+              requestState: _requestState,
+              selectedLocation: _selectedLocation,
+              selectedLocationWeather: _selectedLocationWeather,
+              isPortrait: isPortrait,
+            ),
+          );
         }),
       ),
     );
   }
 }
-
