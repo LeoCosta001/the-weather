@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:the_weather/http/weather_api/weather_api_webclient.dart';
+import 'package:the_weather/local_store/selected_location.dart';
 import 'package:the_weather/models/positionstack_api/positionstack_location_normalize.dart';
 import 'package:the_weather/pages/dashboard_page/widgets/dashboard_content.dart';
 import 'package:the_weather/pages/dashboard_page/widgets/drawer.dart';
@@ -19,6 +20,7 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPageState extends State<DashboardPage> {
   final WeatherApiWebClient _weatherApiWebClient = WeatherApiWebClient();
+  final LocalStoreSelectedLocation _localStoreSelectedLocation = LocalStoreSelectedLocation();
 
   // States
   RequestState _requestState = RequestState.initial;
@@ -34,9 +36,10 @@ class _DashboardPageState extends State<DashboardPage> {
         .getWeatherApiOneCall(
       WeatherApiWebClientOneCallOption(longitude: newLocation.longitude, latitude: newLocation.latitude),
     )
-        .then((WeatherApi newWeatherApi) {
+        .then((WeatherApi newWeatherApi) async {
       setState(() => _selectedLocationWeather = newWeatherApi);
       setState(() => _requestState = RequestState.ok);
+      _localStoreSelectedLocation.save(newLocation);
     }).catchError((onError) {
       setState(() => _requestState = RequestState.error);
     });
@@ -44,6 +47,21 @@ class _DashboardPageState extends State<DashboardPage> {
 
   String _getPageTitleText() {
     return _selectedLocation == null ? 'Select location' : '${_selectedLocation!.title} - ${_selectedLocation!.subTitle}';
+  }
+
+  void _checkLocalStore() async {
+    PositionstackLocationNormalize? selectedLocation = await _localStoreSelectedLocation.get();
+    if (selectedLocation != null) {
+      _updateSelectedLocation(selectedLocation);
+    }
+  }
+
+  // Initial state
+  @override
+  void initState() {
+    _checkLocalStore();
+
+    super.initState();
   }
 
   @override
