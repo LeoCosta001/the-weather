@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:the_weather/http/weather_api/weather_api_icon.dart';
 import 'package:the_weather/http/weather_api/weather_api_utils.dart';
 import 'package:the_weather/models/weather_api/weather_api.dart';
+import 'package:the_weather/routes/routes_name.dart';
 
 /* *********************************
 ** Widget: HourlyWeatherContainer **
@@ -39,8 +40,8 @@ class _HourlyWeatherContainerState extends State<HourlyWeatherContainer> {
                   padding: const EdgeInsets.only(bottom: 8.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: const [
-                      Text(
+                    children: [
+                      const Text(
                         'Next hours',
                         style: TextStyle(
                           fontSize: 18.0,
@@ -48,8 +49,10 @@ class _HourlyWeatherContainerState extends State<HourlyWeatherContainer> {
                         ),
                       ),
                       TextButton(
-                        onPressed: null,
-                        child: Text(
+                        onPressed: () {
+                          Navigator.pushNamed(context, RoutesName.NEXT_HOURS_DETAIL_PAGE);
+                        },
+                        child: const Text(
                           'Details',
                           style: TextStyle(
                             fontSize: 18.0,
