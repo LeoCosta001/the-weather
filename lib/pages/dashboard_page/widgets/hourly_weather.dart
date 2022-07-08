@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:the_weather/http/weather_api/weather_api_icon.dart';
 import 'package:the_weather/http/weather_api/weather_api_utils.dart';
 import 'package:the_weather/models/weather_api/weather_api.dart';
-import 'package:the_weather/routes/routes_name.dart';
+import 'package:the_weather/routes/route_name.dart';
 
 /* *********************************
 ** Widget: HourlyWeatherContainer **
@@ -50,7 +50,7 @@ class _HourlyWeatherContainerState extends State<HourlyWeatherContainer> {
                       ),
                       TextButton(
                         onPressed: () {
-                          Navigator.pushNamed(context, RoutesName.NEXT_HOURS_DETAIL_PAGE);
+                          Navigator.pushNamed(context, RouteName.NEXT_HOURS_DETAIL_PAGE);
                         },
                         child: const Text(
                           'Details',
