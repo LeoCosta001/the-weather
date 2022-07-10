@@ -21,7 +21,7 @@ class _NextHoursDetailPageState extends State<NextHoursDetailPage> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
-                    flexibleSpace: Container(
+          flexibleSpace: Container(
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topCenter,

@@ -12,13 +12,20 @@ class RouteGenerator {
     switch (settings.name) {
       case RouteName.DASHBOARD_PAGE:
         return _GeneratePageRoute(
-            widget: const DashboardPage(), routeName: settings.name as String);
+          widget: const DashboardPage(),
+          routeName: settings.name as String,
+        );
       case RouteName.NEXT_HOURS_DETAIL_PAGE:
         return _GeneratePageRoute(
-            widget: const NextHoursDetailPage(), routeName: settings.name as String);
+          widget: const NextHoursDetailPage(),
+          routeName: settings.name as String,
+          arguments: settings.arguments as Object,
+        );
       default:
         return _GeneratePageRoute(
-            widget: const DashboardPage(), routeName: RouteName.DASHBOARD_PAGE);
+          widget: const DashboardPage(),
+          routeName: RouteName.DASHBOARD_PAGE,
+        );
     }
   }
 }
@@ -30,18 +37,20 @@ class RouteGenerator {
 class _GeneratePageRoute extends PageRouteBuilder {
   final Widget widget;
   final String routeName;
-  _GeneratePageRoute({required this.widget, required this.routeName})
+  final Object? arguments;
+  _GeneratePageRoute({required this.widget, required this.routeName, this.arguments})
       : super(
-            settings: RouteSettings(name: routeName),
-            pageBuilder: (BuildContext context, Animation<double> animation,
-                Animation<double> secondaryAnimation) {
+            settings: RouteSettings(name: routeName, arguments: arguments),
+            pageBuilder: (BuildContext context, Animation<double> animation, Animation<double> secondaryAnimation) {
               return widget;
             },
             transitionDuration: const Duration(milliseconds: 300),
-            transitionsBuilder: (BuildContext context,
-                Animation<double> animation,
-                Animation<double> secondaryAnimation,
-                Widget child) {
+            transitionsBuilder: (
+              BuildContext context,
+              Animation<double> animation,
+              Animation<double> secondaryAnimation,
+              Widget child,
+            ) {
               return SlideTransition(
                 textDirection: TextDirection.rtl,
                 // Define animation direction
