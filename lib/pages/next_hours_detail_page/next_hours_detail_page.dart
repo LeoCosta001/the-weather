@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:the_weather/models/weather_api/weather_api.dart';
+import 'package:the_weather/pages/dashboard_page/widgets/next_hours_detail_content.dart';
 
 class NextHoursDetailPage extends StatefulWidget {
   const NextHoursDetailPage({Key? key}) : super(key: key);
@@ -10,6 +12,9 @@ class NextHoursDetailPage extends StatefulWidget {
 class _NextHoursDetailPageState extends State<NextHoursDetailPage> {
   @override
   Widget build(BuildContext context) {
+    // Get value of preview page
+    final weatherApi = ModalRoute.of(context)?.settings.arguments as WeatherApi;
+
     return Container(
       constraints: const BoxConstraints.expand(),
       decoration: const BoxDecoration(
@@ -35,34 +40,20 @@ class _NextHoursDetailPageState extends State<NextHoursDetailPage> {
               ),
             ),
           ),
-          title: Row(
-            children: const [
-              Padding(
-                padding: EdgeInsets.only(right: 8.0),
-                child: Icon(Icons.room),
-              ),
-              Expanded(
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Text(
-                    'Next hours detail',
-                    style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 20.0,
-                    ),
-                  ),
-                ),
-              ),
-            ],
+          title: const Text(
+            'Next hours detail',
+            style: TextStyle(
+              fontWeight: FontWeight.w400,
+              fontSize: 20.0,
+            ),
           ),
         ),
         body: OrientationBuilder(builder: (context, orientation) {
           final isPortrait = orientation == Orientation.portrait;
 
-          return Text(
-            'page 2',
-            style:
-                TextStyle(fontSize: 20, color: Theme.of(context).primaryColor),
+          return NextHoursDetailContent(
+            isPortrait: isPortrait,
+            weatherApi: weatherApi,
           );
         }),
       ),

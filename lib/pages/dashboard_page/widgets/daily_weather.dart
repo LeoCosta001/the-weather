@@ -30,7 +30,7 @@ class _DailyWeatherContainerState extends State<DailyWeatherContainer> {
         width: double.infinity,
         padding: const EdgeInsets.only(right: 16.0, bottom: 16.0, left: 16.0),
         decoration: BoxDecoration(
-          color: Colors.black.withOpacity(0.1),
+          color: Colors.black.withOpacity(0.2),
           borderRadius: BorderRadius.circular(16.0),
         ),
         child: SizedBox(

@@ -24,79 +24,83 @@ class _HourlyWeatherContainerState extends State<HourlyWeatherContainer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        alignment: Alignment.centerLeft,
-        padding: const EdgeInsets.only(bottom: 8.0),
-        child: Container(
-          width: double.infinity,
-          padding: const EdgeInsets.only(right: 16.0, bottom: 16.0, left: 16.0),
-          decoration: BoxDecoration(
-            color: Colors.black.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(16.0),
-          ),
-          child: SizedBox(
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'Next hours',
+      alignment: Alignment.centerLeft,
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.only(right: 16.0, bottom: 16.0, left: 16.0),
+        decoration: BoxDecoration(
+          color: Colors.black.withOpacity(0.2),
+          borderRadius: BorderRadius.circular(16.0),
+        ),
+        child: SizedBox(
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(bottom: 8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'Next hours',
+                      style: TextStyle(
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pushNamed(
+                          context,
+                          RouteName.NEXT_HOURS_DETAIL_PAGE,
+                          arguments: widget.weatherApi,
+                        );
+                      },
+                      child: const Text(
+                        'Details',
                         style: TextStyle(
                           fontSize: 18.0,
                           fontWeight: FontWeight.w400,
+                          decoration: TextDecoration.underline,
                         ),
                       ),
-                      TextButton(
-                        onPressed: () {
-                          Navigator.pushNamed(context, RouteName.NEXT_HOURS_DETAIL_PAGE);
-                        },
-                        child: const Text(
-                          'Details',
-                          style: TextStyle(
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.w400,
-                            decoration: TextDecoration.underline,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-                SizedBox(
-                  height: 145.0,
-                  child: ListView.builder(
-                    shrinkWrap: true,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: widget.weatherApi.hourly.length - 1,
-                    itemBuilder: (context, index) {
-                      final WeatherApiHourly weatherApiHourly = widget.weatherApi.hourly[index + 1];
-                      final DayCycle getCycleToHourly = WeatherApiUtils().getDayCycle(
+              ),
+              SizedBox(
+                height: 145.0,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: widget.weatherApi.hourly.length - 1,
+                  itemBuilder: (context, index) {
+                    final WeatherApiHourly weatherApiHourly = widget.weatherApi.hourly[index + 1];
+                    final DayCycle getCycleToHourly = WeatherApiUtils().getDayCycle(
+                      weatherApiHourly.dt,
+                      WeatherApiUtils().getDayOfCycle(
                         weatherApiHourly.dt,
-                        WeatherApiUtils().getDayOfCycle(
-                          weatherApiHourly.dt,
-                          widget.weatherApi.daily,
-                        ),
-                      );
+                        widget.weatherApi.daily,
+                      ),
+                    );
 
-                      return HourlyWeather(
-                        isFirstItem: index == 0,
-                        hour: DateTime.fromMillisecondsSinceEpoch(weatherApiHourly.dt).hour,
-                        temp: weatherApiHourly.temp,
-                        iconName: WeatherApiIcon().getById(
-                          weatherApiHourly.weather[0].id,
-                          getCycleToHourly == DayCycle.day ? true : false,
-                        ),
-                      );
-                    },
-                  ),
+                    return HourlyWeather(
+                      isFirstItem: index == 0,
+                      hour: DateTime.fromMillisecondsSinceEpoch(weatherApiHourly.dt).hour,
+                      temp: weatherApiHourly.temp,
+                      iconName: WeatherApiIcon().getById(
+                        weatherApiHourly.weather[0].id,
+                        getCycleToHourly == DayCycle.day ? true : false,
+                      ),
+                    );
+                  },
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
-      );
+      ),
+    );
   }
 }
 
@@ -142,8 +146,7 @@ class _HourlyWeatherState extends State<HourlyWeather> {
             ),
             Center(
               child: Container(
-                  padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-                  child: SvgPicture.asset('assets/images/weathers_icon/${widget.iconName}')),
+                  padding: const EdgeInsets.only(top: 8.0, bottom: 8.0), child: SvgPicture.asset('assets/images/weathers_icon/${widget.iconName}')),
             ),
             Center(
               child: Text('${widget.temp.toInt()}ºC'),

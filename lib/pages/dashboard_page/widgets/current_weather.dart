@@ -26,7 +26,7 @@ class _CurrentWeatherContainerState extends State<CurrentWeatherContainer> {
         width: 200.0,
         padding: const EdgeInsets.all(16.0),
         decoration: BoxDecoration(
-          color: Colors.black.withOpacity(0.1),
+          color: Colors.black.withOpacity(0.2),
           borderRadius: BorderRadius.circular(16.0),
         ),
         child: Column(
