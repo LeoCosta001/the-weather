@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:the_weather/models/weather_api/weather_api.dart';
-import 'package:the_weather/pages/dashboard_page/widgets/select_hourly.dart';
-import 'package:the_weather/pages/dashboard_page/widgets/selected_hourly_detail.dart';
+import 'package:the_weather/pages/next_hours_detail_page/widgets/select_hourly.dart';
+import 'package:the_weather/pages/next_hours_detail_page/widgets/selected_hourly_detail.dart';
 
 /* *********************************
 ** Widget: NextHoursDetailContent **
