@@ -26,69 +26,64 @@ class _SelectedHourlyDetailContainerState extends State<SelectedHourlyDetailCont
     final int selectedHour = DateTime.fromMillisecondsSinceEpoch(selectedHourly.dt).hour;
 
     return Container(
-      alignment: Alignment.centerLeft,
-      padding: const EdgeInsets.only(top: 16.0),
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.only(right: 16.0, bottom: 16.0, left: 16.0),
-        decoration: BoxDecoration(
-          color: Colors.black.withOpacity(0.2),
-          borderRadius: BorderRadius.circular(16.0),
-        ),
-        child: SizedBox(
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                child: Text(
-                  'Selected hour: ${selectedHour > 9 ? selectedHour : '0$selectedHour'}:00',
-                  style: const TextStyle(
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.w400,
-                  ),
+      width: double.infinity,
+      padding: const EdgeInsets.only(right: 16.0, bottom: 16.0, left: 16.0),
+      decoration: BoxDecoration(
+        color: Colors.black.withOpacity(0.2),
+        borderRadius: BorderRadius.circular(16.0),
+      ),
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(bottom: 8.0),
+              child: Text(
+                'Selected hour: ${selectedHour > 9 ? selectedHour : '0$selectedHour'}:00',
+                style: const TextStyle(
+                  fontSize: 18.0,
+                  fontWeight: FontWeight.w400,
                 ),
               ),
-              Wrap(
-                crossAxisAlignment: WrapCrossAlignment.center,
-                alignment: WrapAlignment.spaceBetween,
-                spacing: 10,
-                runSpacing: 30,
-                direction: Axis.horizontal,
-                children: [
-                  SelectedHourlyDetail(
-                    icon: Icons.thermostat,
-                    title: 'Feels like',
-                    info: '${selectedHourly.feelsLike.toInt()}ºC',
-                  ),
-                  SelectedHourlyDetail(
-                    icon: Icons.air,
-                    title: 'Wind speed',
-                    info: '${selectedHourly.windSpeed.toInt()} Km/h',
-                  ),
-                  SelectedHourlyDetail(
-                    icon: Icons.cloudy_snowing,
-                    title: 'Precipitation',
-                    info: '${(selectedHourly.pop * 100).toInt()}%',
-                  ),
-                  SelectedHourlyDetail(
-                    icon: Icons.light_mode,
-                    title: 'UV',
-                    info: '${selectedHourly.uvi.toInt()} - ${UviLevel().getIndexName(selectedHourly.uvi)}',
-                  ),
-                  SelectedHourlyDetail(
-                    icon: Icons.water_drop,
-                    title: 'Humidity',
-                    info: '${selectedHourly.humidity}%',
-                  ),
-                  SelectedHourlyDetail(
-                    icon: Icons.cloud,
-                    title: 'Clouds',
-                    info: '${selectedHourly.clouds}%',
-                  ),
-                ],
-              ),
-            ],
-          ),
+            ),
+            Wrap(
+              crossAxisAlignment: WrapCrossAlignment.center,
+              spacing: 15,
+              runSpacing: 15,
+              direction: Axis.horizontal,
+              children: [
+                SelectedHourlyDetail(
+                  icon: Icons.thermostat,
+                  title: 'Feels like',
+                  info: '${selectedHourly.feelsLike.toInt()}ºC',
+                ),
+                SelectedHourlyDetail(
+                  icon: Icons.air,
+                  title: 'Wind speed',
+                  info: '${selectedHourly.windSpeed.toInt()} Km/h',
+                ),
+                SelectedHourlyDetail(
+                  icon: Icons.cloudy_snowing,
+                  title: 'Precipitation',
+                  info: '${(selectedHourly.pop * 100).toInt()}%',
+                ),
+                SelectedHourlyDetail(
+                  icon: Icons.light_mode,
+                  title: 'UV',
+                  info: '${selectedHourly.uvi.toInt()} - ${UviLevel().getIndexName(selectedHourly.uvi)}',
+                ),
+                SelectedHourlyDetail(
+                  icon: Icons.water_drop,
+                  title: 'Humidity',
+                  info: '${selectedHourly.humidity}%',
+                ),
+                SelectedHourlyDetail(
+                  icon: Icons.cloud,
+                  title: 'Clouds',
+                  info: '${selectedHourly.clouds}%',
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

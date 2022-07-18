@@ -32,20 +32,49 @@ class _NextHoursDetailContentState extends State<NextHoursDetailContent> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      scrollDirection: Axis.vertical,
-      padding: const EdgeInsets.all(8.0),
-      children: [
-        SelectHourlyContainer(
-          weatherApi: widget.weatherApi,
-          selectedHour: _selectedHour,
-          updateSelectedHourly: (int selectedHour) => setState(() => _selectedHour = selectedHour),
-        ),
-        SelectedHourlyDetailContainer(
-          weatherApi: widget.weatherApi,
-          selectedHour: _selectedHour,
-        )
-      ],
-    );
+    return widget.isPortrait
+        ? ListView(
+            scrollDirection: Axis.vertical,
+            padding: const EdgeInsets.all(8.0),
+            children: [
+              SelectHourlyContainer(
+                weatherApi: widget.weatherApi,
+                selectedHour: _selectedHour,
+                updateSelectedHourly: (int selectedHour) => setState(() => _selectedHour = selectedHour),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 16.0),
+                child: SelectedHourlyDetailContainer(
+                  weatherApi: widget.weatherApi,
+                  selectedHour: _selectedHour,
+                ),
+              ),
+            ],
+          )
+        : Padding(
+            padding: const EdgeInsets.only(top: 0, right: 8.0, bottom: 8.0, left: 8.0),
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: SizedBox(
+                    height: 205,
+                    width: MediaQuery.of(context).size.width / 3,
+                    child: SelectHourlyContainer(
+                      weatherApi: widget.weatherApi,
+                      selectedHour: _selectedHour,
+                      updateSelectedHourly: (int selectedHour) => setState(() => _selectedHour = selectedHour),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: SelectedHourlyDetailContainer(
+                    weatherApi: widget.weatherApi,
+                    selectedHour: _selectedHour,
+                  ),
+                ),
+              ],
+            ),
+          );
   }
 }
