@@ -5,6 +5,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:the_weather/http/weather_api/weather_api_icon.dart';
 import 'package:the_weather/http/weather_api/weather_api_utils.dart';
 import 'package:the_weather/models/weather_api/weather_api.dart';
+import 'package:the_weather/routes/route_name.dart';
 
 /* ********************************
 ** Widget: DailyWeatherContainer **
@@ -40,8 +41,8 @@ class _DailyWeatherContainerState extends State<DailyWeatherContainer> {
                 padding: const EdgeInsets.only(bottom: 8.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: const [
-                    Text(
+                  children: [
+                    const Text(
                       'Next days',
                       style: TextStyle(
                         fontSize: 18.0,
@@ -49,8 +50,14 @@ class _DailyWeatherContainerState extends State<DailyWeatherContainer> {
                       ),
                     ),
                     TextButton(
-                      onPressed: null,
-                      child: Text(
+                      onPressed: () {
+                        Navigator.pushNamed(
+                          context,
+                          RouteName.NEXT_DAYS_DETAIL_PAGE,
+                          arguments: widget.weatherApi,
+                        );
+                      },
+                      child: const Text(
                         'Details',
                         style: TextStyle(
                           fontSize: 18.0,
