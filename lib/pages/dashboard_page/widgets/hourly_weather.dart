@@ -4,6 +4,7 @@ import 'package:the_weather/http/weather_api/weather_api_icon.dart';
 import 'package:the_weather/http/weather_api/weather_api_utils.dart';
 import 'package:the_weather/models/weather_api/weather_api.dart';
 import 'package:the_weather/routes/route_name.dart';
+import 'package:the_weather/shared/utils/hour_normalize.dart';
 
 /* *********************************
 ** Widget: HourlyWeatherContainer **
@@ -86,7 +87,7 @@ class _HourlyWeatherContainerState extends State<HourlyWeatherContainer> {
 
                     return HourlyWeather(
                       isFirstItem: index == 0,
-                      hour: DateTime.fromMillisecondsSinceEpoch(weatherApiHourly.dt).hour,
+                      dateInMilliseconds: weatherApiHourly.dt,
                       temp: weatherApiHourly.temp,
                       iconName: WeatherApiIcon().getById(
                         weatherApiHourly.weather[0].id,
@@ -109,14 +110,14 @@ class _HourlyWeatherContainerState extends State<HourlyWeatherContainer> {
 ************************ */
 class HourlyWeather extends StatefulWidget {
   final bool isFirstItem;
-  final int hour;
+  final int dateInMilliseconds;
   final double temp;
   final String iconName;
 
   const HourlyWeather({
     Key? key,
     this.isFirstItem = true,
-    required this.hour,
+    required this.dateInMilliseconds,
     required this.temp,
     required this.iconName,
   }) : super(key: key);
@@ -142,7 +143,7 @@ class _HourlyWeatherState extends State<HourlyWeather> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Center(
-              child: Text('${widget.hour > 9 ? widget.hour : '0${widget.hour}'}:00'),
+              child: Text(HourNormalize().onlyHour(widget.dateInMilliseconds)),
             ),
             Center(
               child: Container(

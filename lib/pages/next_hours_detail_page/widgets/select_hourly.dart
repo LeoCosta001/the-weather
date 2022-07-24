@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:the_weather/http/weather_api/weather_api_icon.dart';
 import 'package:the_weather/http/weather_api/weather_api_utils.dart';
 import 'package:the_weather/models/weather_api/weather_api.dart';
+import 'package:the_weather/shared/utils/hour_normalize.dart';
 
 /* ***********************
 ** Widget: SelectHourly **
@@ -68,7 +69,7 @@ class _SelectHourlyContainerState extends State<SelectHourlyContainer> {
                     return SelectHourlyButton(
                       isFirstItem: index == 0,
                       isSelected: widget.selectedHour == weatherApiHourly.dt,
-                      hour: DateTime.fromMillisecondsSinceEpoch(weatherApiHourly.dt).hour,
+                      dateInMilliseconds: weatherApiHourly.dt,
                       temp: weatherApiHourly.temp,
                       iconName: WeatherApiIcon().getById(
                         weatherApiHourly.weather[0].id,
@@ -95,7 +96,7 @@ class _SelectHourlyContainerState extends State<SelectHourlyContainer> {
 class SelectHourlyButton extends StatefulWidget {
   final bool isFirstItem;
   final bool isSelected;
-  final int hour;
+  final int dateInMilliseconds;
   final double temp;
   final String iconName;
   final Function updateSelectedHourly;
@@ -104,7 +105,7 @@ class SelectHourlyButton extends StatefulWidget {
     Key? key,
     this.isFirstItem = true,
     this.isSelected = false,
-    required this.hour,
+    required this.dateInMilliseconds,
     required this.temp,
     required this.iconName,
     required this.updateSelectedHourly,
@@ -134,7 +135,7 @@ class _SelectHourlyButtonState extends State<SelectHourlyButton> {
             children: [
               Center(
                 child: Text(
-                  '${widget.hour > 9 ? widget.hour : '0${widget.hour}'}:00',
+                  HourNormalize().onlyHour(widget.dateInMilliseconds),
                   style: TextStyle(fontWeight: widget.isSelected ? FontWeight.bold : FontWeight.normal),
                 ),
               ),

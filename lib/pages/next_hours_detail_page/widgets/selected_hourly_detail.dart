@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:the_weather/shared/utils/hour_normalize.dart';
 import 'package:the_weather/models/weather_api/weather_api.dart';
 import 'package:the_weather/shared/utils/uvi_level.dart';
 
@@ -38,7 +39,7 @@ class _SelectedHourlyDetailContainerState extends State<SelectedHourlyDetailCont
             Padding(
               padding: const EdgeInsets.only(bottom: 8.0),
               child: Text(
-                'Selected hour: ${selectedHour > 9 ? selectedHour : '0$selectedHour'}:00',
+                'Selected hour: ${HourNormalize().onlyHour(selectedHour)}',
                 style: const TextStyle(
                   fontSize: 18.0,
                   fontWeight: FontWeight.w400,
