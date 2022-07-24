@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:the_weather/pages/dashboard_page/dashboard_page.dart';
+import 'package:the_weather/pages/next_days_detail_page/next_days_detail_page.dart';
 import 'package:the_weather/pages/next_hours_detail_page/next_hours_detail_page.dart';
 import 'package:the_weather/routes/route_name.dart';
 
@@ -18,6 +19,12 @@ class RouteGenerator {
       case RouteName.NEXT_HOURS_DETAIL_PAGE:
         return _GeneratePageRoute(
           widget: const NextHoursDetailPage(),
+          routeName: settings.name as String,
+          arguments: settings.arguments as Object,
+        );
+      case RouteName.NEXT_DAYS_DETAIL_PAGE:
+        return _GeneratePageRoute(
+          widget: const NextDaysDetailPage(),
           routeName: settings.name as String,
           arguments: settings.arguments as Object,
         );
